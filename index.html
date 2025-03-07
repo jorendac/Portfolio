@@ -11,9 +11,11 @@
             --highlight-color: #4CAF50;
             --secondary-color: #333333;
             --accent-color: #FFA500;
+            --font-primary: 'Arial', sans-serif;
+            --font-secondary: 'Helvetica', sans-serif;
         }
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: var(--font-primary);
             line-height: 1.6;
             color: var(--text-color);
             margin: 0;
@@ -21,7 +23,7 @@
             background-color: var(--bg-color);
         }
         #header {
-            height: 100vh;
+            height: 80vh;
             background-image: url('header-bg.jpg');
             background-attachment: fixed;
             background-position: center;
@@ -33,6 +35,7 @@
             text-align: center;
         }
         h1, h2 {
+            font-family: var(--font-secondary);
             color: var(--highlight-color);
         }
         .container {
@@ -44,16 +47,18 @@
             margin-bottom: 4rem;
         }
         #about {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: start;
         }
-        .about-left, .about-right {
-            width: 48%;
+        .about-left {
+            text-align: center;
         }
         .profile-image {
-            width: 100%;
-            height: 300px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
             background: var(--secondary-color);
             margin-bottom: 1rem;
             display: flex;
@@ -61,6 +66,12 @@
             justify-content: center;
             color: var(--text-color);
             font-style: italic;
+            overflow: hidden;
+        }
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .tabs {
             display: flex;
@@ -76,43 +87,49 @@
         }
         .tab-btn.active {
             background: var(--highlight-color);
+            color: var(--bg-color);
         }
         .tab-content {
             display: none;
             background: var(--secondary-color);
             padding: 1rem;
+            border-radius: 8px;
         }
         .tab-content.active {
             display: block;
         }
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            perspective: 1000px;
         }
-        .project-icon {
+        .project-card {
             background: var(--secondary-color);
-            padding: 1rem;
-            text-align: center;
-            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            transform-style: preserve-3d;
         }
-        .project-icon:hover {
-            transform: translateY(-10px) rotateY(10deg);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         .project-image {
-            width: 100%;
-            height: 150px;
+            height: 200px;
             background: var(--accent-color);
-            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--bg-color);
             font-style: italic;
+        }
+        .project-info {
+            padding: 1rem;
+        }
+        .project-title {
+            margin-bottom: 0.5rem;
+        }
+        .project-description {
+            color: #ddd;
         }
     </style>
 </head>
@@ -127,8 +144,10 @@
     <div class="container">
         <section id="about">
             <div class="about-left">
-                <div class="profile-image">Profile Image</div>
-                <p>I'm a passionate computer engineer with expertise in software development and hardware design.</p>
+                <div class="profile-image">
+                    <img src="profile.jpg" alt="John Doe">
+                </div>
+                <p>Passionate computer engineer with expertise in software and hardware.</p>
             </div>
             <div class="about-right">
                 <div class="tabs">
@@ -161,21 +180,33 @@
         <section id="projects">
             <h2>Projects</h2>
             <div class="projects-grid">
-                <div class="project-icon" onclick="location.href='project1.html'">
-                    <div class="project-image">Project 1 Image</div>
-                    <h3>AI Chess Engine</h3>
-                    <p>Machine learning-powered chess engine</p>
-                </div>
-                <div class="project-icon" onclick="location.href='project2.html'">
-                    <div class="project-image">Project 2 Image</div>
-                    <h3>IoT Smart Home</h3>
-                    <p>Raspberry Pi-based home automation</p>
-                </div>
-                <div class="project-icon" onclick="location.href='project3.html'">
-                    <div class="project-image">Project 3 Image</div>
-                    <h3>Blockchain Voting</h3>
-                    <p>Secure, transparent voting system</p>
-                </div>
+                <a href="project1.html" class="project-card">
+                    <div class="project-image">
+                        Project 1 Image
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">AI Chess Engine</h3>
+                        <p class="project-description">Machine learning-powered chess engine</p>
+                    </div>
+                </a>
+                <a href="project2.html" class="project-card">
+                    <div class="project-image">
+                        Project 2 Image
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">IoT Smart Home</h3>
+                        <p class="project-description">Raspberry Pi-based home automation</p>
+                    </div>
+                </a>
+                <a href="project3.html" class="project-card">
+                    <div class="project-image">
+                        Project 3 Image
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Blockchain Voting</h3>
+                        <p class="project-description">Secure, transparent voting system</p>
+                    </div>
+                </a>
             </div>
         </section>
     </div>
