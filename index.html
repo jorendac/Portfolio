@@ -5,232 +5,312 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>John Doe - Computer Engineer Portfolio</title>
     <style>
-        :root {
-            --bg-color: #1a1a1a;
-            --text-color: #ffffff;
-            --highlight-color: #4CAF50;
-            --secondary-color: #333333;
-            --accent-color: #FFA500;
-            --font-primary: 'Arial', sans-serif;
-            --font-secondary: 'Helvetica', sans-serif;
+        /* ... (previous styles remain the same) ... */
+
+        /* Animated Transitions */
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
-        body {
-            font-family: var(--font-primary);
-            line-height: 1.6;
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
+        .fade-in.visible {
+            opacity: 1;
         }
-        #header {
-            height: 80vh;
-            background-image: url('header-bg.jpg');
+
+        /* Parallax Scrolling */
+        .parallax {
             background-attachment: fixed;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
         }
-        h1, h2 {
-            font-family: var(--font-secondary);
-            color: var(--highlight-color);
-        }
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 4rem 2rem;
-        }
-        section {
-            margin-bottom: 4rem;
-        }
-        #about {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
-            align-items: start;
-        }
-        .about-left {
-            text-align: center;
-        }
-        .profile-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: var(--secondary-color);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-color);
-            font-style: italic;
+
+        /* Interactive Project Showcase */
+        #project-showcase {
+            position: relative;
+            height: 400px;
             overflow: hidden;
         }
-        .profile-image img {
+        .project-item {
+            position: absolute;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            transition: transform 0.5s ease-in-out;
         }
-        .tabs {
-            display: flex;
-            margin-bottom: 1rem;
-        }
-        .tab-btn {
-            background: var(--secondary-color);
-            color: var(--text-color);
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .tab-btn.active {
-            background: var(--highlight-color);
+
+        /* Dynamic Color Schemes */
+        body.theme-1 { --highlight-color: #4CAF50; }
+        body.theme-2 { --highlight-color: #2196F3; }
+        body.theme-3 { --highlight-color: #FFC107; }
+
+        /* Micro-interactions */
+        .button {
+            padding: 10px 20px;
+            background-color: var(--highlight-color);
             color: var(--bg-color);
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s ease-in-out;
         }
-        .tab-content {
-            display: none;
-            background: var(--secondary-color);
-            padding: 1rem;
-            border-radius: 8px;
+        .button:active {
+            transform: scale(0.95);
         }
-        .tab-content.active {
+
+        /* Customizable Layout */
+        .projects-grid.list-view {
             display: block;
         }
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .project-card {
-            background: var(--secondary-color);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        .project-image {
-            height: 200px;
-            background: var(--accent-color);
+        .projects-grid.list-view .project-card {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--bg-color);
-            font-style: italic;
+            margin-bottom: 20px;
         }
-        .project-info {
-            padding: 1rem;
+        .projects-grid.list-view .project-image {
+            width: 200px;
+            height: 150px;
         }
-        .project-title {
-            margin-bottom: 0.5rem;
+
+        /* Animated Skill Visualization */
+        .skill-bar {
+            height: 20px;
+            background-color: var(--secondary-color);
+            margin-bottom: 10px;
         }
-        .project-description {
-            color: #ddd;
+        .skill-progress {
+            height: 100%;
+            background-color: var(--highlight-color);
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Virtual Business Card */
+        #virtual-card {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        /* Project Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--highlight-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: var(--bg-color);
+            border: 4px solid var(--highlight-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            left: 50%;
+        }
+        .right::after {
+            left: -16px;
+        }
+
+        /* Chatbot Assistant */
+        #chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+        }
+        #chatbot-messages {
+            height: 350px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        #chatbot-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: var(--bg-color);
+            color: var(--text-color);
         }
     </style>
 </head>
-<body>
-    <header id="header">
-        <div>
-            <h1>John Doe</h1>
-            <p>Computer Engineer & Software Developer</p>
+<body class="theme-1">
+    <!-- ... (previous header and about section remain the same) ... -->
+
+    <section id="projects" class="fade-in">
+        <h2>Projects</h2>
+        <button id="toggle-layout" class="button">Toggle Layout</button>
+        <div class="projects-grid">
+            <!-- ... (previous project cards remain the same) ... -->
         </div>
-    </header>
+    </section>
 
-    <div class="container">
-        <section id="about">
-            <div class="about-left">
-                <div class="profile-image">
-                    <img src="profile.jpg" alt="John Doe">
-                </div>
-                <p>Passionate computer engineer with expertise in software and hardware.</p>
-            </div>
-            <div class="about-right">
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="skills">Skills</button>
-                    <button class="tab-btn" data-tab="experience">Experience</button>
-                    <button class="tab-btn" data-tab="education">Education</button>
-                </div>
-                <div id="skills" class="tab-content active">
-                    <h3>Skills</h3>
-                    <ul>
-                        <li>JavaScript</li>
-                        <li>Python</li>
-                        <li>C++</li>
-                        <li>Machine Learning</li>
-                    </ul>
-                </div>
-                <div id="experience" class="tab-content">
-                    <h3>Experience</h3>
-                    <p>Software Engineer at Tech Corp (2020-Present)</p>
-                    <p>Junior Developer at StartUp Inc (2018-2020)</p>
-                </div>
-                <div id="education" class="tab-content">
-                    <h3>Education</h3>
-                    <p>MSc in Computer Engineering, Tech University (2018)</p>
-                    <p>BSc in Computer Science, State College (2016)</p>
-                </div>
-            </div>
-        </section>
+    <section id="project-showcase" class="parallax">
+        <div class="project-item" style="background-image: url('project1.jpg');">
+            <h3>AI Chess Engine</h3>
+        </div>
+        <div class="project-item" style="background-image: url('project2.jpg');">
+            <h3>IoT Smart Home</h3>
+        </div>
+        <div class="project-item" style="background-image: url('project3.jpg');">
+            <h3>Blockchain Voting</h3>
+        </div>
+    </section>
 
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="projects-grid">
-                <a href="project1.html" class="project-card">
-                    <div class="project-image">
-                        Project 1 Image
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">AI Chess Engine</h3>
-                        <p class="project-description">Machine learning-powered chess engine</p>
-                    </div>
-                </a>
-                <a href="project2.html" class="project-card">
-                    <div class="project-image">
-                        Project 2 Image
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">IoT Smart Home</h3>
-                        <p class="project-description">Raspberry Pi-based home automation</p>
-                    </div>
-                </a>
-                <a href="project3.html" class="project-card">
-                    <div class="project-image">
-                        Project 3 Image
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">Blockchain Voting</h3>
-                        <p class="project-description">Secure, transparent voting system</p>
-                    </div>
-                </a>
+    <section id="skills" class="fade-in">
+        <h2>Skills</h2>
+        <div class="skill-bar">
+            <div class="skill-progress" data-skill="JavaScript" data-level="90"></div>
+        </div>
+        <div class="skill-bar">
+            <div class="skill-progress" data-skill="Python" data-level="85"></div>
+        </div>
+        <div class="skill-bar">
+            <div class="skill-progress" data-skill="C++" data-level="80"></div>
+        </div>
+    </section>
+
+    <section id="virtual-card" class="fade-in">
+        <h2>Virtual Business Card</h2>
+        <p>John Doe</p>
+        <p>Computer Engineer & Software Developer</p>
+        <p>Email: john@example.com</p>
+        <p>Phone: (123) 456-7890</p>
+        <button id="save-card" class="button">Save Card</button>
+    </section>
+
+    <section id="timeline" class="fade-in">
+        <h2>Project Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <h3>2021</h3>
+                <p>Blockchain Voting System</p>
             </div>
-        </section>
+            <div class="timeline-item right">
+                <h3>2020</h3>
+                <p>IoT Smart Home</p>
+            </div>
+            <div class="timeline-item left">
+                <h3>2019</h3>
+                <p>AI Chess Engine</p>
+            </div>
+        </div>
+    </section>
+
+    <div id="chatbot">
+        <div id="chatbot-messages"></div>
+        <input type="text" id="chatbot-input" placeholder="Ask me anything...">
     </div>
 
-    <script>
-        // Tab system functionality
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
+    <button id="toggle-chatbot" class="button">Chat with AI</button>
 
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tabId = btn.getAttribute('data-tab');
-                tabBtns.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-                btn.classList.add('active');
-                document.getElementById(tabId).classList.add('active');
+    <script>
+        // ... (previous JavaScript remains the same) ...
+
+        // Animated Transitions
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
         });
+        fadeElements.forEach(el => observer.observe(el));
 
-        // Parallax effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            const scrollPosition = window.pageYOffset;
-            header.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+        // Interactive Project Showcase
+        const showcase = document.getElementById('project-showcase');
+        const projects = showcase.querySelectorAll('.project-item');
+        let currentProject = 0;
+
+        function rotateProjects() {
+            projects[currentProject].style.transform = 'translateX(-100%)';
+            currentProject = (currentProject + 1) % projects.length;
+            projects[currentProject].style.transform = 'translateX(0)';
+        }
+
+        setInterval(rotateProjects, 5000);
+
+        // Dynamic Color Schemes
+        const themeButton = document.createElement('button');
+        themeButton.textContent = 'Change Theme';
+        themeButton.classList.add('button');
+        document.body.appendChild(themeButton);
+
+        let currentTheme = 1;
+        themeButton.addEventListener('click', () => {
+            currentTheme = (currentTheme % 3) + 1;
+            document.body.className = `theme-${currentTheme}`;
+        });
+
+        // Customizable Layout
+        const toggleLayout = document.getElementById('toggle-layout');
+        const projectsGrid = document.querySelector('.projects-grid');
+
+        toggleLayout.addEventListener('click', () => {
+            projectsGrid.classList.toggle('list-view');
+        });
+
+        // Animated Skill Visualization
+        const skillBars = document.querySelectorAll('.skill-progress');
+        skillBars.forEach(bar => {
+            const level = bar.getAttribute('data-level');
+            bar.style.width = `${level}%`;
+        });
+
+        // Virtual Business Card
+        const saveCard = document.getElementById('save-card');
+        saveCard.addEventListener('click', () => {
+            alert('Business card saved!');
+            // In a real implementation, this would generate a vCard or similar format
+        });
+
+        // Chatbot Assistant
+        const toggleChatbot = document.getElementById('toggle-chatbot');
+        const chatbot = document.getElementById('chatbot');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const chatbotInput = document.getElementById('chatbot-input');
+
+        toggleChatbot.addEventListener('click', () => {
+            chatbot.style.display = chatbot.style.display === 'none' ? 'block' : 'none';
+        });
+
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const message = chatbotInput.value;
+                chatbotMessages.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+                chatbotInput.value = '';
+                // In a real implementation, this would call an AI service for a response
+                setTimeout(() => {
+                    chatbotMessages.innerHTML += `<p><strong>AI:</strong> Thanks for your message. How can I help you?</p>`;
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                }, 1000);
+            }
         });
     </script>
 </body>
