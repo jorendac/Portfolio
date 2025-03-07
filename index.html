@@ -10,6 +10,7 @@
             --text-color: #ffffff;
             --highlight-color: #4CAF50;
             --secondary-color: #333333;
+            --accent-color: #FFA500;
         }
         body {
             font-family: 'Arial', sans-serif;
@@ -19,8 +20,16 @@
             padding: 0;
             background-color: var(--bg-color);
         }
-        header {
-            padding: 2rem 0;
+        #header {
+            height: 100vh;
+            background-image: url('header-bg.jpg');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
         }
         h1, h2 {
@@ -29,7 +38,7 @@
         .container {
             max-width: 1200px;
             margin: auto;
-            padding: 0 2rem;
+            padding: 4rem 2rem;
         }
         section {
             margin-bottom: 4rem;
@@ -37,6 +46,7 @@
         #about {
             display: flex;
             justify-content: space-between;
+            align-items: flex-start;
         }
         .about-left, .about-right {
             width: 48%;
@@ -52,40 +62,66 @@
             color: var(--text-color);
             font-style: italic;
         }
-        #projects {
+        .tabs {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .tab-btn {
+            background: var(--secondary-color);
+            color: var(--text-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .tab-btn.active {
+            background: var(--highlight-color);
+        }
+        .tab-content {
+            display: none;
+            background: var(--secondary-color);
+            padding: 1rem;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            perspective: 1000px;
         }
         .project-icon {
-            width: 30%;
-            margin-bottom: 2rem;
+            background: var(--secondary-color);
+            padding: 1rem;
             text-align: center;
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
         }
         .project-icon:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) rotateY(10deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         .project-image {
             width: 100%;
-            height: 200px;
-            background: var(--secondary-color);
+            height: 150px;
+            background: var(--accent-color);
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-color);
+            color: var(--bg-color);
             font-style: italic;
-        }
-        .project-icon p {
-            margin-top: 0.5rem;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>John Doe</h1>
-        <p>Computer Engineer & Software Developer</p>
+    <header id="header">
+        <div>
+            <h1>John Doe</h1>
+            <p>Computer Engineer & Software Developer</p>
+        </div>
     </header>
 
     <div class="container">
@@ -95,39 +131,76 @@
                 <p>I'm a passionate computer engineer with expertise in software development and hardware design.</p>
             </div>
             <div class="about-right">
-                <h2>Interests</h2>
-                <p>Beyond coding, I'm fascinated by:</p>
-                <ul>
-                    <li>Artificial Intelligence</li>
-                    <li>Quantum Computing</li>
-                    <li>Sustainable Technology</li>
-                    <li>Space Exploration</li>
-                </ul>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="skills">Skills</button>
+                    <button class="tab-btn" data-tab="experience">Experience</button>
+                    <button class="tab-btn" data-tab="education">Education</button>
+                </div>
+                <div id="skills" class="tab-content active">
+                    <h3>Skills</h3>
+                    <ul>
+                        <li>JavaScript</li>
+                        <li>Python</li>
+                        <li>C++</li>
+                        <li>Machine Learning</li>
+                    </ul>
+                </div>
+                <div id="experience" class="tab-content">
+                    <h3>Experience</h3>
+                    <p>Software Engineer at Tech Corp (2020-Present)</p>
+                    <p>Junior Developer at StartUp Inc (2018-2020)</p>
+                </div>
+                <div id="education" class="tab-content">
+                    <h3>Education</h3>
+                    <p>MSc in Computer Engineering, Tech University (2018)</p>
+                    <p>BSc in Computer Science, State College (2016)</p>
+                </div>
             </div>
         </section>
 
         <section id="projects">
             <h2>Projects</h2>
-            <div class="project-icon" onclick="location.href='project1.html'">
-                <div class="project-image">Project 1 Image</div>
-                <h3>AI Chess Engine</h3>
-                <p>Machine learning-powered chess engine</p>
-            </div>
-            <div class="project-icon" onclick="location.href='project2.html'">
-                <div class="project-image">Project 2 Image</div>
-                <h3>IoT Smart Home</h3>
-                <p>Raspberry Pi-based home automation</p>
-            </div>
-            <div class="project-icon" onclick="location.href='project3.html'">
-                <div class="project-image">Project 3 Image</div>
-                <h3>Blockchain Voting</h3>
-                <p>Secure, transparent voting system</p>
+            <div class="projects-grid">
+                <div class="project-icon" onclick="location.href='project1.html'">
+                    <div class="project-image">Project 1 Image</div>
+                    <h3>AI Chess Engine</h3>
+                    <p>Machine learning-powered chess engine</p>
+                </div>
+                <div class="project-icon" onclick="location.href='project2.html'">
+                    <div class="project-image">Project 2 Image</div>
+                    <h3>IoT Smart Home</h3>
+                    <p>Raspberry Pi-based home automation</p>
+                </div>
+                <div class="project-icon" onclick="location.href='project3.html'">
+                    <div class="project-image">Project 3 Image</div>
+                    <h3>Blockchain Voting</h3>
+                    <p>Secure, transparent voting system</p>
+                </div>
             </div>
         </section>
     </div>
 
     <script>
-        // You can add any additional JavaScript functionality here
+        // Tab system functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Parallax effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            const scrollPosition = window.pageYOffset;
+            header.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+        });
     </script>
 </body>
 </html>
